@@ -1,3 +1,4 @@
+use log::*;
 use std::fs;
 use std::path::Path;
 use structopt::StructOpt;
@@ -7,27 +8,27 @@ pub struct Init {}
 
 impl Init {
     pub fn run(&self) {
-        println!("Initializing the environment");
+        info!("Initializing the environment");
 
         let templates_dir = Path::new("templates");
         let interviews_dir = Path::new("interviews");
 
         if !templates_dir.exists() {
             match fs::create_dir(templates_dir) {
-                Ok(_) => println!("Created 'templates' directory"),
-                Err(e) => eprintln!("Failed to create 'templates' directory: {}", e),
+                Ok(_) => info!("Created 'templates' directory"),
+                Err(e) => error!("Failed to create 'templates' directory: {}", e),
             }
         } else {
-            println!("'templates' directory already exists");
+            info!("'templates' directory already exists");
         }
 
         if !interviews_dir.exists() {
             match fs::create_dir(interviews_dir) {
-                Ok(_) => println!("Created 'interviews' directory"),
-                Err(e) => eprintln!("Failed to create 'interviews' directory: {}", e),
+                Ok(_) => info!("Created 'interviews' directory"),
+                Err(e) => error!("Failed to create 'interviews' directory: {}", e),
             }
         } else {
-            println!("'interviews' directory already exists");
+            info!("'interviews' directory already exists");
         }
 
         let template_file = templates_dir.join("example.md");
@@ -36,12 +37,12 @@ impl Init {
                 &template_file,
                 "# Example Template\n\n- Question 1\n- Question 2",
             ) {
-                Ok(_) => println!("Created 'example.md' template"),
-                Err(e) => eprintln!("Failed to create 'example.md' template: {}", e),
+                Ok(_) => info!("Created 'example.md' template"),
+                Err(e) => error!("Failed to create 'example.md' template: {}", e),
             }
         }
 
-        println!("Initialization complete");
+        info!("Initialization complete");
     }
 }
 

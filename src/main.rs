@@ -1,11 +1,12 @@
 mod commands;
 mod models;
 mod utils;
+use std::env;
 
-use structopt::StructOpt;
+use commands::init::Init;
 use commands::start::Start;
 use commands::sync::Sync;
-use commands::init::Init;
+use structopt::StructOpt;
 
 #[derive(StructOpt)]
 #[structopt(name = "interview-cli", about = "A CLI tool for interview evaluation")]
@@ -19,6 +20,9 @@ enum Cli {
 }
 
 fn main() {
+    env::set_var("RUST_LOG", "info");
+    env_logger::init();
+
     let args = Cli::from_args();
     match args {
         Cli::Init(init) => init.run(),
