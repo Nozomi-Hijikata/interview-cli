@@ -29,6 +29,19 @@ impl Init {
         } else {
             println!("'interviews' directory already exists");
         }
+
+        let template_file = templates_dir.join("example.md");
+        if !template_file.exists() {
+            match fs::write(
+                &template_file,
+                "# Example Template\n\n- Question 1\n- Question 2",
+            ) {
+                Ok(_) => println!("Created 'example.md' template"),
+                Err(e) => eprintln!("Failed to create 'example.md' template: {}", e),
+            }
+        }
+
+        println!("Initialization complete");
     }
 }
 
@@ -42,7 +55,11 @@ mod tests {
     fn test_run_creates_directories() {
         let templates_dir = Path::new("templates");
         let interviews_dir = Path::new("interviews");
+        let template_file = templates_dir.join("example.md");
 
+        if template_file.exists() {
+            fs::remove_file(&template_file).unwrap();
+        }
         if templates_dir.exists() {
             fs::remove_dir_all(templates_dir).unwrap();
         }
@@ -50,15 +67,16 @@ mod tests {
             fs::remove_dir_all(interviews_dir).unwrap();
         }
 
+
         assert!(!templates_dir.exists());
         assert!(!interviews_dir.exists());
 
-        // Init構造体のインスタンスを作成してrunメソッドを実行
         let init = Init {};
         init.run();
 
         assert!(templates_dir.exists());
         assert!(interviews_dir.exists());
+        assert!(template_file.exists());
 
         fs::remove_dir_all(templates_dir).unwrap();
         fs::remove_dir_all(interviews_dir).unwrap();
