@@ -67,7 +67,6 @@ mod tests {
             fs::remove_dir_all(interviews_dir).unwrap();
         }
 
-
         assert!(!templates_dir.exists());
         assert!(!interviews_dir.exists());
 

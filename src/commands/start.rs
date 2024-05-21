@@ -2,9 +2,9 @@ use structopt::StructOpt;
 
 #[derive(StructOpt)]
 pub struct Start {
-    #[structopt(short="t", long, help = "Path to the file")]
+    #[structopt(short = "t", long, help = "Path to the file")]
     template: String,
-    #[structopt(short="n", long, help = "Name of the interviewee")]
+    #[structopt(short = "n", long, help = "Name of the interviewee")]
     name: String,
 }
 
