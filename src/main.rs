@@ -1,7 +1,7 @@
 mod commands;
+mod config;
 mod models;
 mod utils;
-use std::env;
 
 use commands::init::Init;
 use commands::start::Start;
@@ -20,9 +20,7 @@ enum Cli {
 }
 
 fn main() {
-    env::set_var("RUST_LOG", "info");
-    env_logger::init();
-
+    config::init();
     let args = Cli::from_args();
     match args {
         Cli::Init(init) => init.run(),
