@@ -31,14 +31,13 @@ impl Init {
             info!("'interviews' directory already exists");
         }
 
-        let template_file = templates_dir.join("example.md");
-        if !template_file.exists() {
-            match fs::write(
-                &template_file,
-                "# Example Template\n\n- Question 1\n- Question 2",
-            ) {
-                Ok(_) => info!("Created 'example.md' template"),
-                Err(e) => error!("Failed to create 'example.md' template: {}", e),
+        let source_template_file = Path::new("src/assets").join("example.md");
+        let destination_template_file = templates_dir.join("example.md");
+
+        if !destination_template_file.exists() {
+            match fs::copy(&source_template_file, &destination_template_file) {
+                Ok(_) => info!("Copied 'example.md' template"),
+                Err(e) => error!("Failed to copy 'example.md' template: {}", e),
             }
         }
 
