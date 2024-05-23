@@ -1,7 +1,8 @@
-use crate::utils::file_handler::{copy_file, create_directory};
+use crate::utils::file_handler::{write_file, create_directory};
 use log::*;
 use std::path::Path;
 use structopt::StructOpt;
+use crate::assets::TEMPLATE_CONTENT;
 
 #[derive(StructOpt)]
 pub struct Init {}
@@ -16,10 +17,11 @@ impl Init {
         create_directory(templates_dir);
         create_directory(interviews_dir);
 
-        let source_template_file = Path::new("src/assets").join("example.md");
+
         let destination_template_file = templates_dir.join("example.md");
 
-        copy_file(&source_template_file, &destination_template_file);
+        write_file(&destination_template_file, TEMPLATE_CONTENT);
+
 
         info!("Initialization complete");
     }

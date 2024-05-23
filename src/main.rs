@@ -3,6 +3,7 @@ mod config;
 mod models;
 mod parser;
 mod utils;
+mod assets;
 
 use commands::init::Init;
 use commands::start::Start;
