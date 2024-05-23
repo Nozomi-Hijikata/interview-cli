@@ -1,8 +1,11 @@
-use regex::Regex;
+use log::*;
+use markdown::{to_mdast, ParseOptions};
 use std::fs::{self, File};
 use std::io::{self, Read, Write};
 use std::path::Path;
-use log::*;
+use crate::parser::parse_answers;
+
+
 
 pub struct Interview {
     pub total_score: u32,
@@ -20,9 +23,18 @@ impl Interview {
     pub fn sync(&mut self, file_path: &Path) -> io::Result<()> {
         debug!("Syncing interview scores for {}", self.candidate_name);
         debug!("File path: {:?}", file_path);
+
         let content = self.read_file(file_path)?;
+
         debug!("Content: {}", content);
-        // let answers = self.parse_answers(&content);
+
+        let mdast = to_mdast(&content, &ParseOptions::default()).unwrap();
+
+        debug!("MDAST: {:?}", mdast);
+
+        let answers = parse_answers(&mdast);
+
+        debug!("Answers: {:?}", answers);
         // self.calculate_score(&answers);
         // self.write_score(file_path, &self.total_score.to_string());
         Ok(())
@@ -49,17 +61,4 @@ impl Interview {
     //     Ok(())
     // }
     //
-    // fn parse_answers(&self, content: &String) -> Vec<(&str, u32)> {
-    //     let mut answers = Vec::new();
-    //     let question_re =
-    //         Regex::new(r"(?m)^# 質問\d+\n(.*?)\n## 研修生の回答\n(.*?)\n## 点数\n(\d+)").unwrap();
-    //
-    //     for cap in question_re.captures_iter(content) {
-    //         let question = cap.get(1).map_or("", |m| m.as_str()).trim();
-    //         let score: u32 = cap.get(3).map_or("0", |m| m.as_str()).parse().unwrap_or(0);
-    //         answers.push((question, score));
-    //     }
-    //
-    //     answers
-    // }
 }
