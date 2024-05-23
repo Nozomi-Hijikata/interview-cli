@@ -1,11 +1,9 @@
+use crate::parser::parse_answers;
+use crate::utils::file_handler::read_file;
 use log::*;
 use markdown::{to_mdast, ParseOptions};
 use std::io;
 use std::path::Path;
-use crate::parser::parse_answers;
-use crate::utils::file_handler::read_file;
-
-
 
 pub struct Interview {
     pub total_score: u32,
@@ -38,7 +36,10 @@ impl Interview {
 
         self.calculate_score(&answers);
 
-        info!("Total score for {}: {}", self.candidate_name, self.total_score);
+        info!(
+            "Total score for {}: {}",
+            self.candidate_name, self.total_score
+        );
 
         Ok(())
     }

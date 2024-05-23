@@ -41,7 +41,7 @@ fn is_question_heading(heading: &Heading) -> bool {
 }
 
 fn is_score_heading(heading: &Heading) -> bool {
-    if let Some(Node::Text(Text { value, .. })) = heading.children.get(0) {
+    if let Some(Node::Text(Text { value, .. })) = heading.children.first() {
         value == "点数"
     } else {
         false
@@ -49,7 +49,7 @@ fn is_score_heading(heading: &Heading) -> bool {
 }
 
 fn extract_text(heading: &Heading) -> &str {
-    if let Some(Node::Text(Text { value, .. })) = heading.children.get(0) {
+    if let Some(Node::Text(Text { value, .. })) = heading.children.first() {
         value
     } else {
         ""
@@ -57,7 +57,7 @@ fn extract_text(heading: &Heading) -> &str {
 }
 
 fn extract_text_from_paragraph(paragraph: &Paragraph) -> Option<&str> {
-    if let Some(Node::Text(Text { value, .. })) = paragraph.children.get(0) {
+    if let Some(Node::Text(Text { value, .. })) = paragraph.children.first() {
         Some(value)
     } else {
         None

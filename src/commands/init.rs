@@ -13,8 +13,8 @@ impl Init {
         let templates_dir = Path::new("templates");
         let interviews_dir = Path::new("interviews");
 
-        create_directory(&templates_dir);
-        create_directory(&interviews_dir);
+        create_directory(templates_dir);
+        create_directory(interviews_dir);
 
         let source_template_file = Path::new("src/assets").join("example.md");
         let destination_template_file = templates_dir.join("example.md");
