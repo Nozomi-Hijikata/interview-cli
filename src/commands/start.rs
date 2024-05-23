@@ -22,7 +22,7 @@ impl Start {
         // let current_date = Local::now().format("%Y%m%d").to_string();
         // let candidate_dir_name = format!("{}_{}", current_date, self.name);
         let candidate_dir_name = &self.name;
-        let candidate_dir = Path::new("interviews").join(&candidate_dir_name);
+        let candidate_dir = Path::new("interviews").join(candidate_dir_name);
 
         create_directory(&candidate_dir);
 
