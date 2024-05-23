@@ -20,15 +20,16 @@ impl Start {
         debug!("template: {}", self.template);
         debug!("name: {}", self.name);
 
-        let current_date = Local::now().format("%Y%m%d").to_string();
-        let candidate_dir_name = format!("{}_{}", current_date, self.name);
+        // let current_date = Local::now().format("%Y%m%d").to_string();
+        // let candidate_dir_name = format!("{}_{}", current_date, self.name);
+        let candidate_dir_name = &self.name;
         let candidate_dir = Path::new("interviews").join(&candidate_dir_name);
 
         create_directory(&candidate_dir);
 
         let template_path = Path::new("templates").join(&self.template);
         debug!("template_path: {}", template_path.display());
-        let destination_path = candidate_dir.join(template_path.file_name().unwrap());
+        let destination_path = candidate_dir.join("interviews.md");
 
         copy_file(&template_path, &destination_path);
     }
