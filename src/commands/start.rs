@@ -24,7 +24,6 @@ impl Start {
         let candidate_dir_name = &self.name;
         let candidate_dir = Path::new("interviews").join(candidate_dir_name);
 
-        //
         create_directory(&candidate_dir);
 
         let template_path = Path::new("templates").join(&self.template);
