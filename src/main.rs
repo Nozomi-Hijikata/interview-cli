@@ -1,8 +1,8 @@
 mod commands;
 mod config;
 mod models;
-mod utils;
 mod parser;
+mod utils;
 
 use commands::init::Init;
 use commands::start::Start;

@@ -1,9 +1,9 @@
 use log::*;
 use markdown::{to_mdast, ParseOptions};
-use std::fs::{self, File};
-use std::io::{self, Read, Write};
+use std::io;
 use std::path::Path;
 use crate::parser::parse_answers;
+use crate::utils::file_handler::read_file;
 
 
 
@@ -24,7 +24,7 @@ impl Interview {
         debug!("Syncing interview scores for {}", self.candidate_name);
         debug!("File path: {:?}", file_path);
 
-        let content = self.read_file(file_path)?;
+        let content = read_file(file_path)?;
 
         debug!("Content: {}", content);
 
@@ -35,30 +35,15 @@ impl Interview {
         let answers = parse_answers(&mdast);
 
         debug!("Answers: {:?}", answers);
-        // self.calculate_score(&answers);
-        // self.write_score(file_path, &self.total_score.to_string());
+
+        self.calculate_score(&answers);
+
+        info!("Total score for {}: {}", self.candidate_name, self.total_score);
+
         Ok(())
     }
 
-    // fn calculate_score(&mut self, answers: &[(&str, u32)]) {
-    //     self.total_score = answers.iter().map(|(_, score)| score).sum();
-    // }
-    //
-    fn read_file(&self, file_path: &Path) -> io::Result<String> {
-        let mut file = File::open(file_path)?;
-        let mut content = String::new();
-        file.read_to_string(&mut content)?;
-        Ok(content)
+    fn calculate_score(&mut self, answers: &[(&str, u32)]) {
+        self.total_score = answers.iter().map(|(_, score)| score).sum();
     }
-    //
-    // fn write_score(&self, file_path: &Path, score: &str) -> io::Result<()> {
-    //     let mut file = File::open(file_path)?;
-    //     let mut content = String::new();
-    //     file.read_to_string(&mut content)?;
-    //     let new_content = content.replace("{{score}}", score);
-    //     let mut file = File::create(file_path)?;
-    //     file.write_all(new_content.as_bytes())?;
-    //     Ok(())
-    // }
-    //
 }

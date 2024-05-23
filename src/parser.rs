@@ -1,4 +1,4 @@
-use markdown::mdast::{Node, Heading, Paragraph, Text};
+use markdown::mdast::{Heading, Node, Paragraph, Text};
 use std::vec::Vec;
 
 pub fn parse_answers(node: &Node) -> Vec<(&str, u32)> {

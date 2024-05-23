@@ -20,7 +20,7 @@ impl Sync {
         let mut interview = Interview::new(&self.candidate_name);
         if let Err(e) = interview.sync(&candidate_dir_file) {
             error!("Error syncing the interview scores: {}", e);
-        }else {
+        } else {
             info!("Interview scores synced successfully");
         }
     }
