@@ -1,5 +1,5 @@
+use crate::utils::file_handler::{copy_file, create_directory};
 use log::*;
-use std::fs;
 use std::path::Path;
 use structopt::StructOpt;
 
@@ -13,33 +13,13 @@ impl Init {
         let templates_dir = Path::new("templates");
         let interviews_dir = Path::new("interviews");
 
-        if !templates_dir.exists() {
-            match fs::create_dir(templates_dir) {
-                Ok(_) => info!("Created 'templates' directory"),
-                Err(e) => error!("Failed to create 'templates' directory: {}", e),
-            }
-        } else {
-            info!("'templates' directory already exists");
-        }
-
-        if !interviews_dir.exists() {
-            match fs::create_dir(interviews_dir) {
-                Ok(_) => info!("Created 'interviews' directory"),
-                Err(e) => error!("Failed to create 'interviews' directory: {}", e),
-            }
-        } else {
-            info!("'interviews' directory already exists");
-        }
+        create_directory(&templates_dir);
+        create_directory(&interviews_dir);
 
         let source_template_file = Path::new("src/assets").join("example.md");
         let destination_template_file = templates_dir.join("example.md");
 
-        if !destination_template_file.exists() {
-            match fs::copy(&source_template_file, &destination_template_file) {
-                Ok(_) => info!("Copied 'example.md' template"),
-                Err(e) => error!("Failed to copy 'example.md' template: {}", e),
-            }
-        }
+        copy_file(&source_template_file, &destination_template_file);
 
         info!("Initialization complete");
     }
