@@ -35,3 +35,14 @@ pub fn read_file(file_path: &Path) -> std::io::Result<String> {
     file.read_to_string(&mut content)?;
     Ok(content)
 }
+
+pub fn write_file(file_path: &Path, content: &str) {
+    if !file_path.exists() {
+        match fs::write(file_path, content) {
+            Ok(_) => info!("Wrote content to file: {}", file_path.display()),
+            Err(e) => error!("Failed to write content to file: {}", e),
+        }
+    } else {
+        info!("File already exists: {}", file_path.display());
+    }
+}
