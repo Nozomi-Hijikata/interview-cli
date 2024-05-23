@@ -35,4 +35,3 @@ pub const TEMPLATE_CONTENT: &str = r#"
 
 ## 点数
 "#;
-
