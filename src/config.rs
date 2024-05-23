@@ -1,15 +1,9 @@
-use std::env;
+use env_logger::Env;
 
 pub fn init() {
     init_logger();
 }
 
 fn init_logger() {
-    let rust_log = match env::var("PROFILE").as_deref() {
-        Ok("release") => "info",
-        _ => "debug",
-    };
-
-    env::set_var("RUST_LOG", rust_log);
-    env_logger::init();
+    env_logger::Builder::from_env(Env::default().default_filter_or("info")).init();
 }
