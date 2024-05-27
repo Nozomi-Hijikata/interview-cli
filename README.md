@@ -46,18 +46,18 @@ ivc start -n <研修生名> -t <templateとなるmarkdownファイル名>
 ```
 
 たとえば、研修生の名前がnozomi_hijikataで、  
-テンプレートファイルがrails-tutorial.mdの場合は、下記のように実行してください。
+テンプレートファイルが`templates/rails-tutorial.md`の場合は、下記のように実行してください。
 ```sh
-ivc start -n nozomi_hijikata -t rails-tutorial.md
+ivc start -n nozomi_hijikata -t rails-tutorial
 ```
 
-そうすると、下記ファイルが`interviews/`直下に生成されるので、`interviews.md`を編集してください。
+そうすると、下記ファイル群が`interviews/`直下に生成されるので、`interviews.md`を編集してください。
 ```
 .
 ├── interviews
-│   └── nozomi_hijikata
-│       ├── interviews.md
-│       └── output.md
+│   └── nozomi_hijikata   # 研修生名
+│       ├── interviews.md # 面接結果の記録
+│       └── output.md     # 面接結果の集計
 └── templates
     ├── example.md
     └── output.md
