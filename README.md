@@ -1,7 +1,7 @@
 [![lint and test](https://github.com/Nozomi-Hijikata/ivc/actions/workflows/main.yml/badge.svg)](https://github.com/Nozomi-Hijikata/ivc/actions/workflows/main.yml)
 
 # 面接用CLI(ivc)
-この研修修了面談での集計作業を効率化するために作成したCLIツールです。
+研修修了面談での集計作業を効率化するために作成したCLIツールです。
 Rustの勉強のために作ったものでもあるので、粗があるとは思いますが、ご了承ください。
 
 本CLIでは主に下記のようなことができます。
