@@ -1,4 +1,5 @@
 use markdown::mdast::{Heading, Node, Paragraph, Text};
+use std::io;
 use std::vec::Vec;
 
 pub fn parse_answers(node: &Node) -> Vec<(&str, u32)> {
@@ -36,6 +37,23 @@ pub fn parse_answers(node: &Node) -> Vec<(&str, u32)> {
     }
 
     answers
+}
+
+pub fn write_answers(content: &str, total_score: &u32) -> io::Result<String> {
+    let mut lines: Vec<String> = content.lines().map(|s| s.to_string()).collect();
+    for i in 0..lines.len() {
+        if lines[i].starts_with("# 合計点数") {
+            let score_line = format!("合計点: {}", total_score);
+            if i + 1 < lines.len() && !lines[i + 1].starts_with('#') {
+                lines[i + 1] = score_line;
+            } else {
+                lines.insert(i + 1, score_line);
+            }
+            break;
+        }
+    }
+
+    Ok(lines.join("\n"))
 }
 
 fn is_question_heading(heading: &Heading) -> bool {

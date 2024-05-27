@@ -1,8 +1,9 @@
-use crate::parser::parse_answers;
+use crate::parser::{parse_answers, write_answers};
 use crate::utils::file_handler::read_file;
 use log::*;
 use markdown::{to_mdast, ParseOptions};
-use std::io;
+use std::fs::OpenOptions;
+use std::io::{self, Write};
 use std::path::Path;
 
 pub struct Interview {
@@ -41,6 +42,18 @@ impl Interview {
             self.candidate_name, self.total_score
         );
 
+        let candidate_output_path = Path::new("interviews")
+            .join(&self.candidate_name)
+            .join("output.md");
+        let output_content = read_file(&candidate_output_path)?;
+
+        let updated_content = write_answers(&output_content, &self.total_score)?;
+
+        let mut file = OpenOptions::new()
+            .write(true)
+            .truncate(true)
+            .open(&candidate_output_path)?;
+        file.write_all(updated_content.as_bytes())?;
         Ok(())
     }
 

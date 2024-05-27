@@ -35,3 +35,11 @@ pub const TEMPLATE_CONTENT: &str = r#"
 
 ## 点数
 "#;
+
+pub const OUTPUT_CONTENT: &str = r#"
+# 合計点数
+
+# 判定
+
+# 総評
+"#;

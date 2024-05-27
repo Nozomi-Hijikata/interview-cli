@@ -1,4 +1,4 @@
-use crate::assets::TEMPLATE_CONTENT;
+use crate::assets::{OUTPUT_CONTENT, TEMPLATE_CONTENT};
 use crate::utils::file_handler::{create_directory, write_file};
 use log::*;
 use std::path::Path;
@@ -20,6 +20,9 @@ impl Init {
         let destination_template_file = templates_dir.join("example.md");
 
         write_file(&destination_template_file, TEMPLATE_CONTENT);
+
+        let destination_output_file = templates_dir.join("output.md");
+        write_file(&destination_output_file, OUTPUT_CONTENT);
 
         info!("Initialization complete");
     }

@@ -29,5 +29,11 @@ impl Start {
         let destination_path = candidate_dir.join("interviews.md");
 
         copy_file(&template_path, &destination_path);
+
+        let output_path = Path::new("templates").join("output.md");
+        let destination_output_path = candidate_dir.join("output.md");
+        debug!("output_path: {}", output_path.display());
+
+        copy_file(&output_path, &destination_output_path);
     }
 }
