@@ -24,7 +24,7 @@ impl Start {
 
         create_directory(&candidate_dir);
 
-        let template_path = Path::new("templates").join(&self.template);
+        let template_path = Path::new("templates").join(format!("{}.md", self.template));
         debug!("template_path: {}", template_path.display());
         let destination_path = candidate_dir.join("interviews.md");
 
