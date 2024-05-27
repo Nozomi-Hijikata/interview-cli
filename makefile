@@ -2,7 +2,7 @@ CARGO_FLAGS = --all-targets --all-features
 
 .PHONY: all check build run clippy test fmt clean
 
-all: check clippy test fmt
+check-all: check clippy test fmt
 
 check:
 	cargo check
