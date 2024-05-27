@@ -14,6 +14,8 @@ pub fn parse_answers(node: &Node) -> Vec<(&str, u32)> {
                         answers.push((question, score));
                     }
                     question = extract_text(heading);
+                    // Reset score for this question
+                    score = 0;
                 }
                 Node::Heading(heading) if is_score_heading(heading) => {
                     score = 0;
