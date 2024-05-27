@@ -21,7 +21,7 @@ impl Sync {
         if let Err(e) = interview.sync(&candidate_dir_file) {
             error!("Error syncing the interview scores: {}", e);
         } else {
-            info!("Interview scores synced successfully");
+            info!("Interview scores synced successfully. See the output.md in the candidate's directory.");
         }
     }
 }
